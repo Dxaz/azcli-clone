@@ -12,13 +12,13 @@ from core.constants import ANSI_ERASE_LINE, ANSI_HIDE_CURSOR, ANSI_SHOW_CURSOR
 logger = get_logger(__name__)
 
 
+
 def _clear_line_and_show_cursor():
     return sys.stderr.write(f"\r{ANSI_ERASE_LINE}{ANSI_SHOW_CURSOR}")
 
 def long_running_operations_handler(lro, **kwargs):
     from sys import stderr
-
-    
+  
     spinner = cycle(['|','/','-','\\'])
 
     label ='Starting'

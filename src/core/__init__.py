@@ -32,19 +32,19 @@ class AzCLI(CLI):
     def get_cli_version(self):
         return __version__
     
-    def exception_handler(self, ex):
-        """ exception handler """
+    # def exception_handler(self, ex):
+    #     """ exception handler """
 
-        from azure.core.exceptions import ClientAuthenticationError, ResourceExistsError
-        if isinstance(ex, ClientAuthenticationError):
-            logger.error('No cached creds found')
-            return 2
-        if isinstance(ex, ResourceExistsError):
-            logger.error(ex.message)
-            return 1
-        else:
-            logger.error(ex)
-        return 1
+    #     from azure.core.exceptions import ClientAuthenticationError, ResourceExistsError
+    #     if isinstance(ex, ClientAuthenticationError):
+    #         logger.error('No cached creds found')
+    #         return 2
+    #     if isinstance(ex, ResourceExistsError):
+    #         logger.error(ex.message)
+    #         return 1
+    #     else:
+    #         logger.error(ex)
+    #     return 1
 
 
 class MyCommandLoader(CLICommandsLoader):
@@ -57,8 +57,8 @@ class MyCommandLoader(CLICommandsLoader):
         with CommandGroup(self,'vm','azcli.command_modules.vm.commands#{}',client_factory=cf_vm) as g:
             g.command('assess-patches', 'vm_begin_assess_patches')
             # TODO: change this back to correct handler
-            g.command('create','dummy')
-            g.command('capture','vm_begin_capture')
+            g.command('create','vm_begin_create')
+            g.command('capture','dummy')
             g.command('convert','vm_begin_convert_to_managed_disks')
             g.command('deallocate','vm_begin_deallocate')
             g.command('delete','vm_begin_delete')

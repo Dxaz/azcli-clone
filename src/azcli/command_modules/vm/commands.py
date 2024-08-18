@@ -80,7 +80,7 @@ def vm_begin_create(client,
     availability_set = SubResource()
     virtual_machine_scale_set = SubResource()
     proximity_placement_group = SubResource()
-    priority = VirtualMachinePriorityTypes()
+    priority = VirtualMachinePriorityTypes(value='Regular')
     eviction_policy = VirtualMachineEvictionPolicyTypes
     billing_profile = BillingProfile()
     host = SubResource()
