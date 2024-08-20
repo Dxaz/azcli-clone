@@ -66,8 +66,8 @@ def vm_begin_create(client,
                                            ApplicationProfile)
      
     hardware_profile= HardwareProfile(vm_size=vm_size, vm_size_properties=vm_size_properties)
-    storage_profile = StorageProfile(image_reference=image,os_disk='', data_disks='',disk_controller_type='')
-    network_profile = NetworkProfile()
+    storage_profile = StorageProfile(image_reference=image,os_disk=kwargs['os_disk'])
+    network_profile = NetworkProfile(network_interfaces='',network_api_version='',network_interface_configurations='')
     security_profile = SecurityProfile()
     additional_capabilities = AdditionalCapabilities()
     os_profile = OSProfile()
