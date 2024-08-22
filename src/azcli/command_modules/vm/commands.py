@@ -29,18 +29,107 @@ def vm_begin_create(client,
                     name,
                     location=None,
                     tags=None,
-                    image=None,
+                    # Plan Settings--begin
                     plan_name=None,
                     plan_publisher=None,
                     plan_offer=None,
                     plan_promotion_code=None,
-                    vm_size='Standard_B1s',
-                    vm_size_properties=None,
-                    identity_type=None,
-                    user_assigned_identities=None,
+                    # ---end Plan Settings
+                    # Identities---begin
+                    assign_identity=None,
+                    # ---end Identities
+                    size='Standard_B1s',
                     zones=None,
-                    extended_location_name=None,
-                    extended_location_types=None,
+                    # Storage Profile Params ---begin
+                    storage_sku='Premium_LRS',
+                    image=None,
+                    attach_os_disk=None,
+                    os_type=None,
+                    os_disk_name=None,
+                    os_disk_caching=None,
+                    os_disk_delete_option=None,
+                    write_accelerator=None,
+                    ephemeral_os_disk_enabled=None,
+                    ephemeral_os_disk_placement=None,
+                    os_disk_size_gb=None,
+                    os_disk_encryption_set=None,
+                    os_disk_security_encryption_set=None,
+                    os_disk_security_encryption_type=None,
+                    attach_data_disk=None,
+                    data_disk_name=None,
+                    data_disk_caching=None,
+                    data_disk_size_gb=None,
+                    data_disk_encryption_sets=None,
+                    data_disk_security_encryption_set=None,
+                    data_disk_security_encryption_type=None,
+                    data_disk_delete_option=None,
+                    disk_controller_type=None,
+                    # ---end Storage Profile
+                    # Additional Capabilities ---begin
+                    ultra_ssd_enabled=None,
+                    hibernation_enabled=None,
+                    # OS Profile ---begin
+                    admin_username=None,
+                    admin_password=None,
+                    custom_data=None,
+                    provision_vm_agent=None,
+                    enable_automatic_updates=None,
+                    patch_mode=None,
+                    enable_hotpatching=None,
+                    assessment_mode=None,
+                    win_reboot_setting=None,
+                    bypass_platform_safety_checks_on_user_schedule=None,
+                    enable_vm_agent_platform_updates=None,
+                    disable_password_authentication=None,
+                    ssh_key_path=None,
+                    ssh_key_data=None,
+                    ssh_key_name=None,
+                    allow_extension_operations=None,
+                    # ---end OS Profile
+                    # Network Profile ---begin
+                    nics=None,
+                    nics_delete_option=None,
+                    accelerated_networking=None,
+                    disable_tcp_state_tracking=None,
+                    enable_fpga=None,
+                    enable_ip_forwarding=None,
+                    nsg=None,
+                    dns_servers=None,
+                    public_ip_name=None,
+                    public_ip_sku=None,
+                    public_ip_tier=None,
+                    public_ip_allocation_method=None,
+                    application_security_groups=None,
+                    load_balancer_backend_address_pools=None,
+                    nic_auxiliary_mode=None,
+                    nic_auxiliary_sku=None,
+                    # ---end Networking Profile
+                    # Security Profile ---begin
+                    secure_boot_enabled=None,
+                    v_tpm_enabled=None,
+                    encryption_at_host=None,
+                    security_type=None,
+                    proxy_agent_enabled=None,
+                    proxy_agent_mode=None,
+                    key_incarnation_id=None,
+                    # ---end Security Profile
+                    # Boot Diagnostics ---begin
+                    boot_diagnostics_enabled=None,
+                    boot_diagnostics_storage_uri=None,
+                    availability_set=None,
+                    virtual_machine_scale_set=None,
+                    proximity_placement_group=None,
+                    priority=None,
+                    eviction_policy=None,
+                    spot_max_price=None,
+                    host=None,
+                    host_group=None,
+                    license_type=None,
+                    extensions_time_budget=None,
+                    platform_fault_domain=None,
+                    user_data=None,
+                    capacity_reservation=None,
+                    gallery_applications=None,
                     **kwargs) -> lro:
 
     from azure.mgmt.compute.models import (VirtualMachine,
@@ -65,38 +154,14 @@ def vm_begin_create(client,
                                            CapacityReservationProfile,
                                            ApplicationProfile)
      
-    hardware_profile= HardwareProfile(vm_size=vm_size, vm_size_properties=vm_size_properties)
-    storage_profile = StorageProfile(image_reference=image,os_disk=kwargs['os_disk'])
-    network_profile = NetworkProfile(network_interfaces='',network_api_version='',network_interface_configurations='')
-    security_profile = SecurityProfile()
-    additional_capabilities = AdditionalCapabilities()
-    os_profile = OSProfile()
-    identity = VirtualMachineIdentity(type=identity_type,user_assigned_identities=user_assigned_identities)
-    tags = tags
-    plan = Plan(name=plan_name,publisher=plan_publisher,product=plan_offer,promotion_code=plan_promotion_code)
-    extended_location = ExtendedLocation(name=extended_location_name,type=extended_location_types)
-    scheduled_events_policy=ScheduledEventsPolicy()
-    diagnostics_profile = DiagnosticsProfile()
-    availability_set = SubResource()
-    virtual_machine_scale_set = SubResource()
-    proximity_placement_group = SubResource()
-    priority = VirtualMachinePriorityTypes(value='Regular')
-    eviction_policy = VirtualMachineEvictionPolicyTypes
-    billing_profile = BillingProfile()
-    host = SubResource()
-    host_group = SubResource()
-    scheduled_events_profile = ScheduledEventsProfile()
-    capacity_reservation = CapacityReservationProfile()
-    application_profile = ApplicationProfile()
-
     parameters = VirtualMachine(location=location,
                                 tags=tags,
                                 plan=plan,
                                 identity=identity,
                                 zones=zones,
-                                extended_location=extended_location,
+                                extended_location=None,
                                 hardware_profile=hardware_profile,
-                                scheduled_events_policy=scheduled_events_policy,
+                                scheduled_events_policy=None,
                                 storage_profile=storage_profile,
                                 additional_capabilities=additional_capabilities,
                                 os_profile=os_profile,
